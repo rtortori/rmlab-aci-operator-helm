@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "rmlab-aci-operator.fullname" . }}
+  labels:
+    {{- include "rmlab-aci-operator.labels" . | nindent 4 }}
+{{- if eq .Values.global.containerPlatform "openshift" }} 
+  namespace: {{ .Values.aciCNI.openshiftNamespace }}
+{{- else }}
+  namespace: {{ .Values.aciCNI.kubeNamespace }}
+{{- end }} 
+spec:
+  replicas: {{ .Values.controller.replicaCount }}
+  selector:
+    matchLabels:
+      name: {{ .Values.controller.labels.name }}
+  template:
+    metadata:
+      labels:
+        name: {{ .Values.controller.labels.name }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      containers:
+      - args:
+        - --enable-leader-election
+        - --leader-election-id=rmlab-aci-operator-sdk1
+        env:
+        - name: WATCH_NAMESPACE
+          value: ""
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: OPERATOR_NAME
+          value: aci-operator
+        image: {{ .Values.controller.image.repository }}:{{ .Values.controller.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
+        name: manager
+        volumeMounts:
+        - mountPath: /usr/local/etc/aci-cert/
+          name: aci-user-cert-volume
+        - mountPath: /opt/ansible/aci-containers-config/
+          name: aci-containers-config-volume
+      terminationGracePeriodSeconds: 10
+      volumes:
+      - configMap:
+          name: {{ .Values.aciCNI.configMaps.aciContainersConfigMap }}
+        name: aci-containers-config-volume
+      - name: aci-user-cert-volume
+        secret:
+          defaultMode: 420
+          secretName: {{ .Values.aciCNI.secrets.aciUserCertSecret }}

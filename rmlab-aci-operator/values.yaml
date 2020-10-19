@@ -1,0 +1,68 @@
+# Default values for rmlab-aci-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Global Default Values
+# containerPlatform can be 'kubernetes' or 'openshift'. Kubernetes is default
+# kubeCreateResource defines the resource we create in Kubernetes (only used in NOTES.txt)
+# openshiftCreateResource defines the resource we create in Openshift (only used in NOTES.txt)
+
+global:
+  containerPlatform: "kubernetes"
+  kubeCreateResource: "namespace"
+  openshiftCreateResource: "project"
+
+
+# ACI CNI Implementation Default Values
+
+aciCNI:
+  kubeNamespace: "kube-system"
+  openshiftNamespace: "aci-containers-system"
+  configMaps:
+    aciContainersConfigMap: aci-containers-config
+  secrets:
+    aciUserCertSecret: aci-user-cert
+
+# Controller Default Values
+
+controller:
+  replicaCount: 1
+
+  labels: 
+    name: acins-operator-rmlab
+
+  image:
+    repository: rtortori/aci-operator
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "apic5.0-v1"
+
+
+# Custom Resource Definition Default Values
+
+crd:
+  names:
+  # You can define a shortname for your CRD, like 'aci'
+  # Example: 'kubectl get aci'
+    shortName: aci
+
+  additionalPrinterColumns:
+    # The names displayed by Kubectl
+    epgContractMasterDef: EPG-CONTRACT-MASTER
+    bridgeDomainDef: ACI-BD
+    masterEPGConsumerContractsDef: M-EPG-C-CONTRACTS
+    masterEPGProviderContractsDef: M-EPG-P-CONTRACTS
+    aciNsEPGConsumerContractsDef: C-CONTRACTS
+    aciNsEPGConsumerContractsDef: P-CONTRACTS
+    operatorManaged: MANAGED
+  
+  # These are the default values for the ACI AP and BD
+  specs:
+    aciDefaultApplicationProfileName: kubernetes
+    aciDefaultBridgeDomainName: kube-pod-bd
+
+
+# RBAC Default Values
+# The serviceaccount name used by the operator controller
+serviceAccount:
+  name: aci-operator-serviceaccount

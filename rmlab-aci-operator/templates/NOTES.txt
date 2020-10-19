@@ -1,0 +1,23 @@
+#############################
+
+RMLAB ACI Operator has been installed!
+You are running on {{ .Values.global.containerPlatform }}!
+
+Try to run the following to get started!
+
+cat <<EOF | kubectl apply -f -
+apiVersion: rmlab.cisco.com/v1
+kind: AciNamespace
+metadata:
+  name: epg-1
+spec:
+  epgcontractmaster: "kube-default"
+  op_managed: True
+EOF
+
+This will: 
+- Create an EPG in ACI using 'kube-default' as EPG contract master (will use the same contracts)
+- Create a {{- if eq .Values.global.containerPlatform "openshift" }} project {{- else }} namespace {{- end }} named 'epg-1' with the correct ACI annotation
+
+For a detailed list of options and use cases, please have a look at the documentation here:
+https://github.com/rtortori/rmlab-aci-operator/
