@@ -3,12 +3,12 @@ entries:
   rmlab-aci-operator:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2020-10-19T23:53:30.672212+02:00"
+    created: "2020-10-20T00:08:51.853359+02:00"
     description: A Helm chart for the RMLAB ACI Operator
-    digest: 73844e777adc263199dfd974b350bd3fef0f837c65be0472029f7870f0d42fc9
+    digest: fca7cd09d81900e9273b23b77abe8243f3eec9bf62b0eaf40de77c7bd8958c11
     name: rmlab-aci-operator
     type: application
     urls:
     - https://rtortori.github.io/rmlab-aci-operator-helm/rmlab-aci-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2020-10-19T23:53:30.67011+02:00"
+generated: "2020-10-20T00:08:51.850964+02:00"
