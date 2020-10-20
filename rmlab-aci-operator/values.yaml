@@ -60,6 +60,10 @@ crd:
   specs:
     aciDefaultApplicationProfileName: kubernetes
     aciDefaultBridgeDomainName: kube-pod-bd
+  
+  # This is a cleaner POD that deletes all AciNamespaces before uninstalling the chart
+  # It's an image which has 'kubectl' installed
+  cleanupImage: bitnami/kubectl:latest
 
 
 # RBAC Default Values

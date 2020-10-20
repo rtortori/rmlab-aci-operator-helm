@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    run: aci-ns-cleaner
+  name: aci-ns-cleaner
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": hook-succeeded
+{{- if eq .Values.global.containerPlatform "openshift" }} 
+  namespace: {{ .Values.aciCNI.openshiftNamespace }}
+{{- else }}
+  namespace: {{ .Values.aciCNI.kubeNamespace }}
+{{- end }}
+spec: 
+  template:
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }} 
+      containers:
+      - image: {{ .Values.crd.cleanupImage }}
+        name: aci-ns-cleaner
+        args:
+        - delete
+        - acinamespaces
+        - -n
+        - default
+        - --all
+      restartPolicy: Never
+  backoffLimit: 4
