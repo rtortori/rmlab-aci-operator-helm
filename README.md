@@ -14,5 +14,5 @@ helm repo add rmlab-aci-operator https://rtortori.github.io/rmlab-aci-operator-h
 Install the operator
 
 ```
-helm install rick rmlab-aci-operator
+helm install aci-op rmlab-aci-operator/latest
 ```
