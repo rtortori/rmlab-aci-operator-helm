@@ -11,7 +11,7 @@ Install Helm client and add the repo
 helm repo add rmlab-aci-operator https://rtortori.github.io/rmlab-aci-operator-helm/
 ```
 
-####Install the operator
+#### Install the operator
 
 Kubernetes install:
 
