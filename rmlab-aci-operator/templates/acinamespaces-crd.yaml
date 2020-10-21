@@ -41,7 +41,7 @@ spec:
       type: string
     - description: Provider contracts of EPG
       jsonPath: .status.provider_contracts
-      name: {{ .Values.crd.additionalPrinterColumns.aciNsEPGConsumerContractsDef }}
+      name: {{ .Values.crd.additionalPrinterColumns.aciNsEPGProviderContractsDef }}
       priority: 1
       type: string
     - description: True if the operator manages the implementation. If False, if you delete the AciNamespace the controller will not execute any finaliser
