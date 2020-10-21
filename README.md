@@ -1,8 +1,8 @@
 # Helm repo for RMLAB ACI Operator
 
 ##### This is the Helm repo for the RMLAB Cisco ACI Kubernetes operator.<br>
-You can find the code [here](https://github.com/rtortori/rmlab-aci-operator) 
-You can find the GitHub page [here](https://rtortori.github.io/rmlab-aci-operator-helm/)
+You can find the code [here](https://github.com/rtortori/rmlab-aci-operator)<br> 
+GitHub page [here](https://rtortori.github.io/rmlab-aci-operator-helm/)
 
 Disclaimer: This is NOT an official Cisco application and comes with absolute NO WARRANTY! <br>Please check the [LICENSE](https://github.com/rtortori/rmlab-aci-operator-helm/blob/main/LICENSE-CISCO.md) for further information. <br>
 
